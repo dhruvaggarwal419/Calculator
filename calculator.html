@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/11.5.1/math.min.js"></script> 
+    <style>
+        body {
+            text-align : center;
+            background-color : rgb(111, 111, 12);
+        }
+        .header {
+            color : white;
+            margin-bottom: 45px;
+        }
+        .container {
+            width : 250px;
+            margin-left : 30%;
+            height : 210px;
+        }
+        .container div {
+            display: inline-block;
+            line-height: 40px;
+            height : 40px;
+            margin : 5px;
+            border-radius: 50%;
+            width : 40px;
+            background-color: white;
+        }
+        .sign {
+            margin-top : 10px;
+            width : 5rem;
+            display: inline-block;
+            line-height: 40px;
+            height : 40px;
+            margin : 5px;
+            border-radius: 5px;
+            width : 100px;
+            background-color: white;
+        }
+        .options {
+            margin-right: -4%;
+        }
+        .box1 {
+            margin-left : 34%;
+            margin-bottom : 5px;
+            width : 200px;
+            height : 48px;
+            line-height: 48px;
+            background-color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="header">Javascript Calculator</h1>
+    <div class="box1">0</div>
+    <div class="container">
+        <div class="7 keys">7</div>
+        <div class="8 keys">8</div>
+        <div class="9 keys">9</div>
+        <div class="+ keys">+</div>
+        <div class="4 keys">4</div>
+        <div class="5 keys">5</div>
+        <div class="6 keys">6</div>
+        <div class="- keys">-</div>
+        <div class="1 keys">1</div>
+        <div class="2 keys">2</div>
+        <div class="3 keys">3</div>
+        <div class="* keys">*</div>
+        <div class="0 keys">0</div>
+        <div class="% keys">%</div>
+        <div class=". keys">.</div>
+        <div class="/ keys">/</div>
+    </div>
+    <div class="options">
+        <div class="sign equalss">=</div>
+        <div class="sign C">C</div>
+    </div>
+    <p class="message"></p>
+</body>
+<script>
+    let string = "0";
+    let isZero = true;
+    let box1 = document.querySelector('.box1');
+    window.addEventListener("load", () => {
+        box1.innerHTML = "0";
+    })
+    document.querySelectorAll(".keys").forEach(element => {
+        element.addEventListener("click", function(event) {
+            if (isZero) {
+                box1.innerHTML = "";
+                isZero = false;
+            }
+            box1.innerHTML = box1.innerHTML + event.target.innerText;
+        })
+    })
+    let message = document.querySelector(".message");
+    let C_event = document.querySelector(".C");
+    C_event.addEventListener("click", () => {
+        box1.innerHTML = "0";
+        isZero = true;
+    })
+    let equalTo = document.querySelector(".equalss");
+    equalTo.addEventListener("click", () => {
+        try {
+            box1.innerHTML = math.evaluate(box1.innerHTML);
+        } catch {
+            message.innerHTML = "ERROR";
+            setTimeout(()=> {
+                message.innerHTML = "";
+            }, 5000);
+            box1.innerHTML = "0";
+            isZero = true;
+        }
+    })
+</script>
+</html>
